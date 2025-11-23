@@ -92,6 +92,10 @@ export default {
           from: { transform: "translateY(20px)", opacity: "0" },
           to: { transform: "translateY(0)", opacity: "1" },
         },
+        "progress": {
+          from: { width: "0%" },
+          to: { width: "100%" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -100,6 +104,7 @@ export default {
         "slide-up": "slide-up 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards",
         "scale-in": "scale-in 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards",
         "count-up": "count-up 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards",
+        "progress": "progress 5s linear forwards",
       },
     },
   },
