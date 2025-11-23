@@ -10,19 +10,14 @@ export const ShareSlide = () => {
     try {
       toast.info("Generating image...");
       
-      const slideElement = document.querySelector('[data-current-slide="true"]') as HTMLElement;
-      if (!slideElement) {
-        toast.error("Could not find slide to download");
-        return;
-      }
-
-      const canvas = await html2canvas(slideElement, {
+      // Capture the entire viewport
+      const canvas = await html2canvas(document.body, {
         scale: 2,
         useCORS: true,
         allowTaint: true,
         logging: false,
-        width: slideElement.offsetWidth,
-        height: slideElement.offsetHeight,
+        width: window.innerWidth,
+        height: window.innerHeight,
       });
 
       canvas.toBlob((blob) => {
