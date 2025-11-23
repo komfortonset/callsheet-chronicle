@@ -10,8 +10,16 @@ export const WelcomeSlide = () => {
         </div>
         <h1 style={{
         animationDelay: "400ms"
-      }} className="text-6xl animate-slide-up text-left px-[30px] font-extrabold bg-calltime-yellow text-gray-600">YOUR YEAR 
-ON SET    2025         <br />
+      }} className="text-6xl animate-slide-up text-left px-[30px] font-extrabold bg-calltime-yellow text-gray-600">​YOUR
+YEAR
+ON
+SET
+2025
+
+
+
+
+ <br />
           Calltime Wrapped
         </h1>
         <p style={{
