@@ -1,13 +1,16 @@
 import { RecapSlide } from "./RecapSlide";
 import { Button } from "@/components/ui/button";
 import { Share2, Instagram, Twitter } from "lucide-react";
+import logo from "@/assets/calltime-logo.png";
 
 export const ShareSlide = () => {
   return (
     <RecapSlide variant="gradient">
       <div className="max-w-2xl w-full text-center space-y-8">
         <div className="animate-scale-in">
-          <div className="text-7xl mb-6">🎉</div>
+          <div className="mb-6 flex justify-center">
+            <img src={logo} alt="Calltime Logo" className="w-24 h-24 object-contain" />
+          </div>
           <h2 className="text-5xl font-black mb-4 text-calltime-black">
             That's a Wrap on 2025!
           </h2>
