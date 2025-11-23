@@ -14,9 +14,9 @@ export const WelcomeSlide = () => {
 ON SET    2025         <br />
           Calltime Wrapped
         </h1>
-        <p className="text-2xl text-white/80 max-w-md mx-auto animate-fade-in" style={{
+        <p style={{
         animationDelay: "600ms"
-      }}>
+      }} className="text-white/80 max-w-md mx-auto animate-fade-in text-sm">
           A year of dedication, collaboration, and growth on set
         </p>
       </div>
