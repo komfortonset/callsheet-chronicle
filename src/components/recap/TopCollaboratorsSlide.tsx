@@ -1,12 +1,13 @@
 import { RecapSlide } from "./RecapSlide";
+import { Collaborator } from "@/types/recap";
 
-const collaborators = [
-  { name: "Sarah Chen", role: "Director of Photography", days: 42 },
-  { name: "Marcus Johnson", role: "1st AD", days: 38 },
-  { name: "Elena Rodriguez", role: "Gaffer", days: 34 },
-];
+interface TopCollaboratorsSlideProps {
+  collaborators: Collaborator[];
+}
 
-export const TopCollaboratorsSlide = () => {
+export const TopCollaboratorsSlide = ({ collaborators }: TopCollaboratorsSlideProps) => {
+  // Show top 5 collaborators
+  const topCollaborators = collaborators.slice(0, 5);
   return (
     <RecapSlide>
       <div className="max-w-2xl w-full space-y-8">
@@ -15,7 +16,7 @@ export const TopCollaboratorsSlide = () => {
         </h2>
         
         <div className="space-y-4">
-          {collaborators.map((collab, index) => (
+          {topCollaborators.map((collab, index) => (
             <div
               key={index}
               className="bg-white rounded-2xl p-6 shadow-card flex items-center justify-between animate-slide-up"
@@ -31,7 +32,7 @@ export const TopCollaboratorsSlide = () => {
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-3xl font-black text-calltime-yellow">{collab.days}</div>
+                <div className="text-3xl font-black text-calltime-yellow">{collab.daysWorkedTogether}</div>
                 <div className="text-sm text-muted-foreground">days</div>
               </div>
             </div>

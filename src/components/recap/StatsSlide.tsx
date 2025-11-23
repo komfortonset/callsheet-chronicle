@@ -1,7 +1,12 @@
 import { RecapSlide } from "./RecapSlide";
 import { StatCard } from "./StatCard";
+import { CareerStats } from "@/types/recap";
 
-export const StatsSlide = () => {
+interface StatsSlideProps {
+  stats: CareerStats;
+}
+
+export const StatsSlide = ({ stats }: StatsSlideProps) => {
   return (
     <RecapSlide>
       <div className="max-w-2xl w-full space-y-6">
@@ -10,28 +15,28 @@ export const StatsSlide = () => {
         <div className="grid grid-cols-2 gap-4">
           <StatCard 
             label="Days on Set" 
-            value="127" 
+            value={stats.daysOnSet.toLocaleString()} 
             icon="📅"
             delay={0}
             variant="yellow"
           />
           <StatCard 
             label="Total Hours" 
-            value="1,524" 
+            value={stats.totalHours.toLocaleString()} 
             icon="⏱️"
             delay={100}
             variant="white"
           />
           <StatCard 
             label="Projects" 
-            value="12" 
+            value={stats.projectCount} 
             icon="🎬"
             delay={200}
             variant="white"
           />
           <StatCard 
             label="Water Bottles" 
-            value="381" 
+            value={stats.waterBottlesConsumed.toLocaleString()} 
             icon="💧"
             delay={300}
             variant="yellow"
