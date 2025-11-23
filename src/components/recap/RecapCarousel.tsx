@@ -79,7 +79,11 @@ export const RecapCarousel = ({
       <div className={cn("flex h-full", isDragging ? "transition-none" : "transition-transform duration-500 ease-out")} style={{
       transform: `translateX(calc(-${currentSlide * 100}% - ${dragOffset}px))`
     }}>
-        {slides.map((slide, index) => <div key={index} className="min-w-full h-full">
+        {slides.map((slide, index) => <div 
+            key={index} 
+            className="min-w-full h-full"
+            data-current-slide={index === currentSlide}
+          >
             {slide}
           </div>)}
       </div>
