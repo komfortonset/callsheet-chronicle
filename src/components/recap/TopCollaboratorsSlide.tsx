@@ -1,11 +1,17 @@
+import { useState } from "react";
 import { RecapSlide } from "./RecapSlide";
 import { Collaborator } from "@/types/recap";
+import { Button } from "@/components/ui/button";
+import { SendGiftDialog } from "./SendGiftDialog";
+import { Gift } from "lucide-react";
 
 interface TopCollaboratorsSlideProps {
   collaborators: Collaborator[];
 }
 
 export const TopCollaboratorsSlide = ({ collaborators }: TopCollaboratorsSlideProps) => {
+  const [giftDialogOpen, setGiftDialogOpen] = useState(false);
+  
   // Show top 5 collaborators
   const topCollaborators = collaborators.slice(0, 5);
   return (
@@ -38,7 +44,24 @@ export const TopCollaboratorsSlide = ({ collaborators }: TopCollaboratorsSlidePr
             </div>
           ))}
         </div>
+
+        {/* Send Gifts Button */}
+        <Button
+          onClick={() => setGiftDialogOpen(true)}
+          className="w-full max-w-md bg-gradient-primary text-calltime-black hover:opacity-90 font-bold text-lg py-6 rounded-2xl shadow-glow animate-fade-in"
+          style={{ animationDelay: "500ms" }}
+        >
+          <Gift className="mr-2 h-5 w-5" />
+          Send Thank You Gifts
+        </Button>
       </div>
+
+      {/* Gift Dialog */}
+      <SendGiftDialog
+        collaborators={collaborators}
+        open={giftDialogOpen}
+        onOpenChange={setGiftDialogOpen}
+      />
     </RecapSlide>
   );
 };
