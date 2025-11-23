@@ -1,6 +1,11 @@
 import { RecapSlide } from "./RecapSlide";
+import { LocationData } from "@/types/recap";
 
-export const HotSpotsSlide = () => {
+interface HotSpotsSlideProps {
+  locations: LocationData;
+}
+
+export const HotSpotsSlide = ({ locations }: HotSpotsSlideProps) => {
   return (
     <RecapSlide variant="dark">
       <div className="max-w-2xl w-full space-y-8">
@@ -14,8 +19,10 @@ export const HotSpotsSlide = () => {
             <div className="text-center space-y-4">
               <div className="text-7xl">📍</div>
               <div className="text-white">
-                <div className="text-3xl font-black mb-2">Los Angeles, CA</div>
-                <div className="text-lg text-white/70">67% of your shoots</div>
+                <div className="text-3xl font-black mb-2">
+                  {locations.primaryLocation.city}, {locations.primaryLocation.state}
+                </div>
+                <div className="text-lg text-white/70">{locations.primaryLocation.percentage}% of your shoots</div>
               </div>
             </div>
           </div>
@@ -28,15 +35,27 @@ export const HotSpotsSlide = () => {
         
         <div className="grid grid-cols-3 gap-4 animate-fade-in" style={{ animationDelay: "400ms" }}>
           <div className="text-center">
-            <div className="text-2xl font-black text-calltime-yellow mb-1">85</div>
-            <div className="text-sm text-white/70">Days in LA</div>
+            <div className="text-2xl font-black text-calltime-yellow mb-1">
+              {locations.primaryLocation.daysWorked}
+            </div>
+            <div className="text-sm text-white/70">
+              Days in {locations.primaryLocation.city}
+            </div>
           </div>
+          {locations.secondaryLocations.length > 0 && (
+            <div className="text-center">
+              <div className="text-2xl font-black text-calltime-yellow mb-1">
+                {locations.secondaryLocations[0].daysWorked}
+              </div>
+              <div className="text-sm text-white/70">
+                Days in {locations.secondaryLocations[0].city}
+              </div>
+            </div>
+          )}
           <div className="text-center">
-            <div className="text-2xl font-black text-calltime-yellow mb-1">28</div>
-            <div className="text-sm text-white/70">Days in NYC</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-black text-calltime-yellow mb-1">14</div>
+            <div className="text-2xl font-black text-calltime-yellow mb-1">
+              {locations.onLocationDays}
+            </div>
             <div className="text-sm text-white/70">On Location</div>
           </div>
         </div>
