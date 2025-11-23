@@ -8,9 +8,10 @@ export const WelcomeSlide = () => {
       }}>
           <img src={logo} alt="Calltime Logo" className="w-32 h-32 object-contain" />
         </div>
-        <h1 className="text-6xl font-black text-white animate-slide-up" style={{
+        <h1 style={{
         animationDelay: "400ms"
-      }}>YOUR YEAR ON SET2025         <br />
+      }} className="text-6xl animate-slide-up text-left px-[30px] font-extrabold bg-calltime-yellow text-gray-600">YOUR YEAR 
+ON SET    2025         <br />
           Calltime Wrapped
         </h1>
         <p className="text-2xl text-white/80 max-w-md mx-auto animate-fade-in" style={{
