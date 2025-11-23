@@ -1,11 +1,12 @@
 import { RecapSlide } from "./RecapSlide";
+import logo from "@/assets/calltime-logo.png";
 
 export const WelcomeSlide = () => {
   return (
     <RecapSlide variant="gradient">
       <div className="text-center space-y-8 animate-fade-in">
-        <div className="text-7xl mb-4 animate-scale-in" style={{ animationDelay: "200ms" }}>
-          🎬
+        <div className="mb-4 animate-scale-in flex justify-center" style={{ animationDelay: "200ms" }}>
+          <img src={logo} alt="Calltime Logo" className="w-32 h-32 object-contain" />
         </div>
         <h1 className="text-6xl font-black text-calltime-black animate-slide-up" style={{ animationDelay: "400ms" }}>
           Your 2025
