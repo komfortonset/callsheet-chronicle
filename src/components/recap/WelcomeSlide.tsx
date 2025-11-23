@@ -10,19 +10,7 @@ export const WelcomeSlide = () => {
         </div>
         <h1 className="text-6xl font-black text-white animate-slide-up" style={{
         animationDelay: "400ms"
-      }}>
-          Your 2025
-CALLTIME
-"2025 WRAPPED          
-
-
-
-
-
-
-
-    
-          <br />
+      }}>YOUR YEAR ON SET2025         <br />
           Calltime Wrapped
         </h1>
         <p className="text-2xl text-white/80 max-w-md mx-auto animate-fade-in" style={{
