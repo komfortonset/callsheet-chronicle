@@ -1,14 +1,22 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { RecapCarousel } from "@/components/recap/RecapCarousel";
+import { WelcomeSlide } from "@/components/recap/WelcomeSlide";
+import { StatsSlide } from "@/components/recap/StatsSlide";
+import { ArchetypeSlide } from "@/components/recap/ArchetypeSlide";
+import { TopCollaboratorsSlide } from "@/components/recap/TopCollaboratorsSlide";
+import { HotSpotsSlide } from "@/components/recap/HotSpotsSlide";
+import { ShareSlide } from "@/components/recap/ShareSlide";
 
 const Index = () => {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
-  );
+  const slides = [
+    <WelcomeSlide key="welcome" />,
+    <StatsSlide key="stats" />,
+    <ArchetypeSlide key="archetype" />,
+    <TopCollaboratorsSlide key="collaborators" />,
+    <HotSpotsSlide key="hotspots" />,
+    <ShareSlide key="share" />,
+  ];
+
+  return <RecapCarousel slides={slides} />;
 };
 
 export default Index;

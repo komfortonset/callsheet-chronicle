@@ -1,0 +1,43 @@
+import { RecapSlide } from "./RecapSlide";
+
+const collaborators = [
+  { name: "Sarah Chen", role: "Director of Photography", days: 42 },
+  { name: "Marcus Johnson", role: "1st AD", days: 38 },
+  { name: "Elena Rodriguez", role: "Gaffer", days: 34 },
+];
+
+export const TopCollaboratorsSlide = () => {
+  return (
+    <RecapSlide>
+      <div className="max-w-2xl w-full space-y-8">
+        <h2 className="text-4xl font-black text-center mb-8 animate-fade-in">
+          Your Top Collaborators
+        </h2>
+        
+        <div className="space-y-4">
+          {collaborators.map((collab, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-2xl p-6 shadow-card flex items-center justify-between animate-slide-up"
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center text-2xl font-black text-calltime-black">
+                  {index + 1}
+                </div>
+                <div>
+                  <div className="font-bold text-lg">{collab.name}</div>
+                  <div className="text-muted-foreground text-sm">{collab.role}</div>
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="text-3xl font-black text-calltime-yellow">{collab.days}</div>
+                <div className="text-sm text-muted-foreground">days</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </RecapSlide>
+  );
+};
