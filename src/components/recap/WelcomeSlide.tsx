@@ -16,8 +16,9 @@ ON SET    2025         <br />
         </h1>
         <p style={{
         animationDelay: "600ms"
-      }} className="text-white/80 max-w-md mx-auto animate-fade-in text-sm">
-          A year of dedication, collaboration, and growth on set
+      }} className="text-white/80 max-w-md mx-auto animate-fade-in text-center text-2xl">
+          A year of dedication, collaboration, and growth 
+on set
         </p>
       </div>
     </RecapSlide>;
