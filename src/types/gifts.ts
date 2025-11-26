@@ -20,7 +20,7 @@ export const GIFT_OPTIONS: GiftOption[] = [
   },
   {
     id: 'hat',
-    name: 'Stats Hat',
+    name: 'HOURS ON SET HAT',
     description: 'Hat with embroidered stats',
     price: 19,
     priceLabel: '$19',
