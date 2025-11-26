@@ -35,9 +35,11 @@
  */
 
 import { Collaborator } from "@/types/recap";
+import { GiftOption } from "@/types/gifts";
 
 export interface GiftRecipient extends Collaborator {
-  email?: string; // May need to fetch from your database
+  email?: string;
+  giftOptionId: GiftOption['id'];
 }
 
 export interface SendGiftRequest {
