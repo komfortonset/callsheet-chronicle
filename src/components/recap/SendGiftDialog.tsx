@@ -178,10 +178,14 @@ export const SendGiftDialog = ({ collaborators, open, onOpenChange }: SendGiftDi
                               <Check className="h-3 w-3 text-calltime-black" />
                             </div>
                           )}
-                          <IconComponent className={cn(
-                            "h-8 w-8 mb-2",
-                            isSelected ? "text-calltime-yellow" : "text-muted-foreground"
-                          )} />
+                          {gift.emoji ? (
+                            <div className="text-3xl mb-2">{gift.emoji}</div>
+                          ) : IconComponent ? (
+                            <IconComponent className={cn(
+                              "h-8 w-8 mb-2",
+                              isSelected ? "text-calltime-yellow" : "text-muted-foreground"
+                            )} />
+                          ) : null}
                           <div className="font-semibold text-sm mb-1">{gift.name}</div>
                           <div className="text-xs text-muted-foreground mb-2 line-clamp-1">
                             {gift.description}
