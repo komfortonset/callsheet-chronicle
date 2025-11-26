@@ -1,9 +1,12 @@
+import { Award, Gift, Package, LucideIcon } from 'lucide-react';
+
 export interface GiftOption {
   id: 'free' | 'hat' | 'wrap-box';
   name: string;
   description: string;
   price: number;
   priceLabel: string;
+  icon: LucideIcon;
 }
 
 export const GIFT_OPTIONS: GiftOption[] = [
@@ -12,21 +15,24 @@ export const GIFT_OPTIONS: GiftOption[] = [
     name: 'Calltime Pro',
     description: '60 days free access',
     price: 0,
-    priceLabel: 'Free'
+    priceLabel: 'Free',
+    icon: Award
   },
   {
     id: 'hat',
     name: 'Calltime Hat',
     description: 'Premium branded hat',
     price: 19,
-    priceLabel: '$19'
+    priceLabel: '$19',
+    icon: Gift
   },
   {
     id: 'wrap-box',
     name: 'Wrap Box',
     description: 'Exclusive wrap box collection',
     price: 599.99,
-    priceLabel: '$599.99'
+    priceLabel: '$599.99',
+    icon: Package
   }
 ];
 
