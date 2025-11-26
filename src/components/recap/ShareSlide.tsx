@@ -126,7 +126,7 @@ export const ShareSlide = () => {
         </div>
         
         <p className="text-sm text-calltime-black/60 mt-8 animate-fade-in" style={{ animationDelay: "600ms" }}>
-          #CalltimeWrapped2025
+          #CW2025
         </p>
       </div>
     </RecapSlide>
