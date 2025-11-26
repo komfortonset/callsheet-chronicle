@@ -78,7 +78,7 @@ export const ShareButton = () => {
         <Button
           size="sm"
           variant="outline"
-          className="fixed top-4 right-4 z-50 bg-background/80 backdrop-blur border-2 border-calltime-black text-calltime-black hover:bg-calltime-black hover:text-calltime-yellow rounded-full"
+          className="fixed bottom-24 left-1/2 -translate-x-1/2 md:bottom-20 z-50 bg-background/90 backdrop-blur border-2 border-calltime-black text-calltime-black hover:bg-calltime-black hover:text-calltime-yellow rounded-full shadow-lg"
         >
           <Share2 className="h-4 w-4" />
         </Button>
