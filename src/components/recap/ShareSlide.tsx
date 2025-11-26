@@ -125,7 +125,7 @@ export const ShareSlide = () => {
           </Button>
         </div>
         
-        <p className="text-sm text-calltime-black/60 mt-8 animate-fade-in" style={{ animationDelay: "600ms" }}>
+        <p className="text-sm text-calltime-black/60 mt-8 mb-32 animate-fade-in" style={{ animationDelay: "600ms" }}>
           #CW2025
         </p>
       </div>
