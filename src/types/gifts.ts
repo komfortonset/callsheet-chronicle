@@ -6,7 +6,8 @@ export interface GiftOption {
   description: string;
   price: number;
   priceLabel: string;
-  icon: LucideIcon;
+  icon?: LucideIcon;
+  emoji?: string;
 }
 
 export const GIFT_OPTIONS: GiftOption[] = [
@@ -24,7 +25,7 @@ export const GIFT_OPTIONS: GiftOption[] = [
     description: 'Hat with embroidered stats',
     price: 19,
     priceLabel: '$19',
-    icon: Gift
+    emoji: '🧢'
   },
   {
     id: 'wrap-box',
