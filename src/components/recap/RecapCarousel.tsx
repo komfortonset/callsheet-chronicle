@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { ShareButton } from "./ShareButton";
 
 interface RecapCarouselProps {
   slides: React.ReactNode[];
@@ -86,6 +87,8 @@ export const RecapCarousel = ({
 
   return (
     <div ref={containerRef} className="relative w-full h-screen overflow-hidden bg-background select-none" onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
+      <ShareButton />
+      
       {/* Slides */}
       <div className={cn("flex h-full", isDragging ? "transition-none" : "transition-transform duration-500 ease-out")} style={{
         transform: `translateX(calc(-${currentSlide * 100}% - ${dragOffset}px))`
