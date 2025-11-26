@@ -161,6 +161,7 @@ export const SendGiftDialog = ({ collaborators, open, onOpenChange }: SendGiftDi
                   <div className="grid grid-cols-3 gap-2">
                     {GIFT_OPTIONS.map((gift) => {
                       const isSelected = selectedGift === gift.id;
+                      const IconComponent = gift.icon;
                       return (
                         <button
                           key={gift.id}
@@ -177,6 +178,10 @@ export const SendGiftDialog = ({ collaborators, open, onOpenChange }: SendGiftDi
                               <Check className="h-3 w-3 text-calltime-black" />
                             </div>
                           )}
+                          <IconComponent className={cn(
+                            "h-8 w-8 mb-2",
+                            isSelected ? "text-calltime-yellow" : "text-muted-foreground"
+                          )} />
                           <div className="font-semibold text-sm mb-1">{gift.name}</div>
                           <div className="text-xs text-muted-foreground mb-2 line-clamp-1">
                             {gift.description}
