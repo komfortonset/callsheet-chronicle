@@ -7,11 +7,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Gift, Loader2 } from "lucide-react";
+import { Gift, Loader2, Check } from "lucide-react";
 import { Collaborator } from "@/types/recap";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { GIFT_OPTIONS, GiftOption } from "@/types/gifts";
 
 interface SendGiftDialogProps {
   collaborators: Collaborator[];
@@ -20,26 +20,29 @@ interface SendGiftDialogProps {
 }
 
 export const SendGiftDialog = ({ collaborators, open, onOpenChange }: SendGiftDialogProps) => {
-  const [selectedCollaborators, setSelectedCollaborators] = useState<Set<string>>(new Set());
+  const [giftSelections, setGiftSelections] = useState<Map<string, GiftOption['id']>>(new Map());
   const [isSending, setIsSending] = useState(false);
   const { toast } = useToast();
 
-  const toggleCollaborator = (name: string) => {
-    const newSelected = new Set(selectedCollaborators);
-    if (newSelected.has(name)) {
-      newSelected.delete(name);
-    } else {
-      newSelected.add(name);
-    }
-    setSelectedCollaborators(newSelected);
+  const selectGiftForCollaborator = (name: string, giftId: GiftOption['id']) => {
+    const newSelections = new Map(giftSelections);
+    newSelections.set(name, giftId);
+    setGiftSelections(newSelections);
   };
 
-  const selectAll = () => {
-    setSelectedCollaborators(new Set(collaborators.map(c => c.name)));
+  const removeCollaborator = (name: string) => {
+    const newSelections = new Map(giftSelections);
+    newSelections.delete(name);
+    setGiftSelections(newSelections);
   };
 
-  const clearAll = () => {
-    setSelectedCollaborators(new Set());
+  const getTotalCost = () => {
+    let total = 0;
+    giftSelections.forEach((giftId) => {
+      const gift = GIFT_OPTIONS.find(g => g.id === giftId);
+      if (gift) total += gift.price;
+    });
+    return total;
   };
 
   /**
@@ -64,10 +67,10 @@ export const SendGiftDialog = ({ collaborators, open, onOpenChange }: SendGiftDi
    * });
    */
   const handleSendGifts = async () => {
-    if (selectedCollaborators.size === 0) {
+    if (giftSelections.size === 0) {
       toast({
-        title: "No collaborators selected",
-        description: "Please select at least one collaborator to send a gift to.",
+        title: "No gifts selected",
+        description: "Please select a gift for at least one collaborator.",
         variant: "destructive",
       });
       return;
@@ -80,15 +83,18 @@ export const SendGiftDialog = ({ collaborators, open, onOpenChange }: SendGiftDi
       await new Promise(resolve => setTimeout(resolve, 1500));
 
       // TODO: Backend team - Replace this with actual API call
-      // const selectedCollabs = collaborators.filter(c => selectedCollaborators.has(c.name));
-      // const response = await sendGiftLinks(selectedCollabs);
+      // const giftsToSend = Array.from(giftSelections.entries()).map(([name, giftId]) => ({
+      //   collaborator: collaborators.find(c => c.name === name),
+      //   giftId
+      // }));
+      // const response = await sendGiftLinks(giftsToSend);
 
       toast({
         title: "Gifts sent! 🎁",
-        description: `Successfully sent thank you gifts to ${selectedCollaborators.size} collaborator${selectedCollaborators.size > 1 ? 's' : ''}.`,
+        description: `Successfully sent ${giftSelections.size} gift${giftSelections.size > 1 ? 's' : ''}.`,
       });
 
-      setSelectedCollaborators(new Set());
+      setGiftSelections(new Map());
       onOpenChange(false);
     } catch (error) {
       console.error("Error sending gifts:", error);
@@ -104,96 +110,125 @@ export const SendGiftDialog = ({ collaborators, open, onOpenChange }: SendGiftDi
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-2xl">
             <Gift className="h-6 w-6 text-calltime-yellow" />
             Send Thank You Gifts
           </DialogTitle>
           <DialogDescription>
-            Select collaborators to send personalized thank you gifts. They'll receive a custom link to claim their gift.
+            Choose a gift for each collaborator. They'll receive a personalized link to claim it.
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-4 mt-4">
-          {/* Select all/none */}
-          <div className="flex justify-between items-center pb-2 border-b">
-            <span className="text-sm font-medium">
-              {selectedCollaborators.size} of {collaborators.length} selected
-            </span>
-            <div className="flex gap-2">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={selectAll}
-                className="text-xs"
-              >
-                Select All
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={clearAll}
-                className="text-xs"
-              >
-                Clear
-              </Button>
-            </div>
-          </div>
-
-          {/* Collaborator list */}
-          <div className="max-h-80 overflow-y-auto space-y-2">
+        <div className="space-y-6 mt-4">
+          {/* Collaborator list with gift selection */}
+          <div className="space-y-4">
             {collaborators.map((collab) => {
-              const isSelected = selectedCollaborators.has(collab.name);
+              const selectedGift = giftSelections.get(collab.name);
+              const hasGift = selectedGift !== undefined;
+              
               return (
                 <div
                   key={collab.name}
-                  onClick={() => toggleCollaborator(collab.name)}
                   className={cn(
-                    "flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all",
-                    isSelected 
+                    "p-4 rounded-lg border transition-all",
+                    hasGift 
                       ? "border-calltime-yellow bg-calltime-yellow/5" 
-                      : "border-border hover:border-calltime-yellow/50"
+                      : "border-border"
                   )}
                 >
-                  <Checkbox
-                    checked={isSelected}
-                    onCheckedChange={() => toggleCollaborator(collab.name)}
-                    className="data-[state=checked]:bg-calltime-yellow data-[state=checked]:border-calltime-yellow"
-                  />
-                  <div className="flex-1">
-                    <div className="font-semibold">{collab.name}</div>
-                    <div className="text-sm text-muted-foreground">
-                      {collab.role} • {collab.daysWorkedTogether} days together
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex-1">
+                      <div className="font-semibold text-lg">{collab.name}</div>
+                      <div className="text-sm text-muted-foreground">
+                        {collab.role} • {collab.daysWorkedTogether} days together
+                      </div>
                     </div>
+                    {hasGift && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => removeCollaborator(collab.name)}
+                        className="text-xs text-muted-foreground"
+                      >
+                        Remove
+                      </Button>
+                    )}
+                  </div>
+
+                  {/* Gift options */}
+                  <div className="grid grid-cols-3 gap-2">
+                    {GIFT_OPTIONS.map((gift) => {
+                      const isSelected = selectedGift === gift.id;
+                      return (
+                        <button
+                          key={gift.id}
+                          onClick={() => selectGiftForCollaborator(collab.name, gift.id)}
+                          className={cn(
+                            "relative p-3 rounded-lg border-2 transition-all text-left",
+                            isSelected
+                              ? "border-calltime-yellow bg-calltime-yellow/10"
+                              : "border-border hover:border-calltime-yellow/50"
+                          )}
+                        >
+                          {isSelected && (
+                            <div className="absolute -top-2 -right-2 bg-calltime-yellow rounded-full p-1">
+                              <Check className="h-3 w-3 text-calltime-black" />
+                            </div>
+                          )}
+                          <div className="font-semibold text-sm mb-1">{gift.name}</div>
+                          <div className="text-xs text-muted-foreground mb-2 line-clamp-1">
+                            {gift.description}
+                          </div>
+                          <div className={cn(
+                            "font-bold",
+                            gift.price === 0 ? "text-green-500" : "text-foreground"
+                          )}>
+                            {gift.priceLabel}
+                          </div>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               );
             })}
           </div>
 
-          {/* Send button */}
-          <Button
-            onClick={handleSendGifts}
-            disabled={selectedCollaborators.size === 0 || isSending}
-            className="w-full bg-calltime-yellow text-calltime-black hover:bg-calltime-yellow/90 font-bold text-lg py-6 rounded-2xl"
-          >
-            {isSending ? (
-              <>
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                Sending...
-              </>
-            ) : (
-              <>
-                <Gift className="mr-2 h-5 w-5" />
-                Send {selectedCollaborators.size > 0 ? `${selectedCollaborators.size} ` : ''}Gift{selectedCollaborators.size !== 1 ? 's' : ''}
-              </>
-            )}
-          </Button>
+          {/* Summary and send button */}
+          <div className="space-y-3 pt-4 border-t">
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-muted-foreground">
+                {giftSelections.size} gift{giftSelections.size !== 1 ? 's' : ''} selected
+              </span>
+              <span className="font-semibold text-lg">
+                Total: ${getTotalCost().toFixed(2)}
+              </span>
+            </div>
 
-          <p className="text-xs text-center text-muted-foreground">
-            Each collaborator will receive an email with a personalized gift link
-          </p>
+            <Button
+              onClick={handleSendGifts}
+              disabled={giftSelections.size === 0 || isSending}
+              className="w-full bg-calltime-yellow text-calltime-black hover:bg-calltime-yellow/90 font-bold text-lg py-6 rounded-2xl"
+            >
+              {isSending ? (
+                <>
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  <Gift className="mr-2 h-5 w-5" />
+                  Send {giftSelections.size > 0 ? `${giftSelections.size} ` : ''}Gift{giftSelections.size !== 1 ? 's' : ''}
+                </>
+              )}
+            </Button>
+
+            <p className="text-xs text-center text-muted-foreground">
+              Each collaborator will receive an email with a personalized gift link
+            </p>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
