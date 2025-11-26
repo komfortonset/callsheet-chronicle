@@ -14,7 +14,7 @@ const Index = () => {
   // from AWS Cognito or your auth system
   const userId = "demo-user-123";
   const year = 2025;
-  
+
   const { data, loading, error } = useRecapData(userId, year);
 
   if (loading) {
