@@ -9,8 +9,8 @@ export interface GiftOption {
 export const GIFT_OPTIONS: GiftOption[] = [
   {
     id: 'free',
-    name: 'Thank You Card',
-    description: 'Digital thank you card',
+    name: 'Calltime Pro',
+    description: '60 days free access',
     price: 0,
     priceLabel: 'Free'
   },
